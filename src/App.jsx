@@ -1,8 +1,12 @@
+import { useState } from "react";
 import { FiGithub, FiInstagram, FiMail } from "react-icons/fi";
 import { motion } from "framer-motion";
 import Card from "./components/Card";
+import ContactModal from "./components/ContactModal";
 
 export default function App() {
+  const [selectedId, setSelectedId] = useState(null);
+
   // 1. LOGIC UNTUK CONTAINER
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -45,12 +49,12 @@ export default function App() {
     {
       id: 3,
       icon: <FiMail size={24} />,
-      href: "https://mail.google.com/mail/?view=cm&fs=1&to=zxcompiler@gmail.com",
       label: "Email",
+      action: "contact",
     },
   ];
 
-  // 4. DATA PROJECT (Sudah diperbaiki desc & color-nya)
+  // 4. DATA PROJECT
   const projects = [
     {
       id: 1,
@@ -58,7 +62,7 @@ export default function App() {
       desc: "Sistem informasi organisasi dengan Admin Panel untuk manajemen konten berita dan anggota.",
       tech: ["Tailwind CSS", "Firebase", "Supabase"],
       link: "https://btmfilkom.vercel.app/",
-      color: "from-blue-500 to-cyan-500", // Warna Glow Biru
+      color: "from-blue-500 to-cyan-500",
     },
     {
       id: 2,
@@ -66,7 +70,7 @@ export default function App() {
       desc: "Personal branding website dengan gaya Bento Grid yang modern dan performa tinggi.",
       tech: ["React", "Tailwind V4", "Framer Motion"],
       link: "https://zxcompiler.netlify.app/",
-      color: "from-yellow-500 to-orange-500", // Warna Glow Kuning
+      color: "from-yellow-500 to-orange-500",
     },
   ];
 
@@ -84,7 +88,6 @@ export default function App() {
           className="lg:col-span-2 flex items-center gap-6 p-8"
         >
           <div className="relative shrink-0">
-            {/* Path image diperbaiki jadi root */}
             <img
               src="/profile-home.png"
               alt="Profile"
@@ -174,7 +177,6 @@ export default function App() {
             Featured Projects
           </h2>
 
-          {/* Grid responsif: 1 kolom di HP, 2 kolom di Tablet/PC */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {projects.map((project) => (
               <a
@@ -218,10 +220,13 @@ export default function App() {
         <Card variants={itemVariants} className="lg:col-span-3 p-6">
           <div className="flex flex-wrap gap-3 lg:gap-4 justify-center">
             {socialLinks.map((social) => (
-              <a
+              <button
                 key={social.id}
-                href={social.href}
-                target="_blank"
+                onClick={() =>
+                  social.action
+                    ? setSelectedId(social.action)
+                    : window.open(social.href, "_blank")
+                }
                 className="
                   flex items-center gap-2 
                   px-4 py-2 lg:px-6 lg:py-3 
@@ -230,15 +235,21 @@ export default function App() {
                   bg-surface border border-white/10 
                   text-primary 
                   hover:border-accent hover:text-accent 
-                  transition-all duration-300
+                  transition-all duration-300 cursor-pointer
                 "
               >
                 {social.icon}
                 <span className="font-bold">{social.label}</span>
-              </a>
+              </button>
             ))}
           </div>
         </Card>
+
+        {/* CONTACT  */}
+        <ContactModal
+          isOpen={selectedId === "contact"}
+          onClose={() => setSelectedId(null)}
+        />
       </motion.div>
     </div>
   );
