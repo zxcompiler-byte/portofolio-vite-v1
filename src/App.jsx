@@ -16,12 +16,13 @@ export default function App() {
 
   // 2. LOGIC UNTUK ITEM (CARD)
   const itemVariants = {
-    hidden: { opacity: 0, y: 100 },
+    hidden: { opacity: 0, y: 20, scale: 0.95 },
     visible: {
       opacity: 1,
       y: 0,
+      scale: 1,
       transition: {
-        duration: 0.8,
+        duration: 0.6,
         ease: "easeOut",
       },
     },
