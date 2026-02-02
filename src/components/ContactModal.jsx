@@ -13,7 +13,7 @@ export default function ContactModal({ isOpen, onClose }) {
   const [toast, setToast] = useState(null);
   const [showWa, setShowWa] = useState(false);
 
-  // LOGIC 1: ENTER TO NEXT INPUT
+  // HANDLE ENTER KEY TO FOCUS NEXT INPUT
   const handleEnter = (e, targetRef) => {
     if (e.key === "Enter") {
       e.preventDefault();
@@ -21,7 +21,7 @@ export default function ContactModal({ isOpen, onClose }) {
     }
   };
 
-  // LOGIC 2: VALIDASI & KIRIM
+  // FORM SUBMIT HANDLER WITH EMAILJS
   const handleSend = (e) => {
     if (e) e.preventDefault();
 
@@ -32,13 +32,12 @@ export default function ContactModal({ isOpen, onClose }) {
 
     setIsLoading(true);
 
-    // KEY EMAILJS
     emailJs
       .sendForm(
-        "service_1h2tigm", // ID Service
-        "template_1j5vd1n", // ID Template
+        "service_1h2tigm",
+        "template_1j5vd1n",
         formRef.current,
-        "Jzo3cA6PChURKZPqw", // Public Key
+        "Jzo3cA6PChURKZPqw",
       )
       .then(
         () => {
@@ -64,13 +63,13 @@ export default function ContactModal({ isOpen, onClose }) {
       );
   };
 
-  //  LOGIC 3: HANDLE WHATSAPP
+  // WHASTAPP FOLLBACK HANDLER
   const handleWa = () => {
     const name = nameRef.current.value;
     const msg = messageRef.current.value;
-    const Text = `Halo, Saya ${name}. \n\nIsi Pesan: ${msg}`;
+    const text = `Halo, Saya ${name}. \n\nIsi Pesan: ${msg}`;
     window.open(
-      `https://wa.me/628131729361?text=${encodeURIComponent(Text)}`,
+      `https://wa.me/628131729361?text=${encodeURIComponent(text)}`,
       "_blank",
     );
   };
@@ -92,11 +91,12 @@ export default function ContactModal({ isOpen, onClose }) {
               onClick={(e) => e.stopPropagation()}
               className="bg-surface border-2 border-accent p-6 lg:p-8 rounded-2xl w-full max-w-md shadow-2xl relative"
             >
-              <h3 className="text-2xl font-bold text-accent mb-2">
+              <h3 className="text-2xl text-center font-bold text-accent mb-2">
                 Let's Connect! 🚀
               </h3>
-              <p className="text-secondary text-sm mb-6">
-                Punya project seru? Ayo kita diskusikan!
+              <p className="text-secondary text-center text-sm mb-6">
+                Punya ide brilian atau butuh solusi digital? Mari wujudkan visi
+                Anda bersama-sama.
               </p>
 
               <form
@@ -104,7 +104,6 @@ export default function ContactModal({ isOpen, onClose }) {
                 onSubmit={handleSend}
                 className="flex flex-col gap-4"
               >
-                {/* Input Nama */}
                 <div>
                   <label className="text-xs font-bold text-secondary uppercase tracking-wide">
                     Nama
@@ -121,7 +120,6 @@ export default function ContactModal({ isOpen, onClose }) {
                   />
                 </div>
 
-                {/* Input Email */}
                 <div>
                   <label className="text-xs font-bold text-secondary uppercase tracking-wide">
                     Email
@@ -137,7 +135,6 @@ export default function ContactModal({ isOpen, onClose }) {
                   />
                 </div>
 
-                {/* Input Pesan */}
                 <div>
                   <label className="text-xs font-bold text-secondary uppercase tracking-wide">
                     Pesan
@@ -149,7 +146,6 @@ export default function ContactModal({ isOpen, onClose }) {
                     className="w-full mt-1 p-3 rounded-lg bg-background/50 border border-primary/10 focus:border-accent text-primary outline-none resize-none transition-colors"
                     placeholder="Tulis pesanmu disini..."
                     required
-                    // LOGIC ENTER TO SUBMIT
                     onKeyDown={(e) => {
                       if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) {
                         e.preventDefault();
@@ -160,7 +156,6 @@ export default function ContactModal({ isOpen, onClose }) {
                   ></textarea>
                 </div>
 
-                {/* Tombol Kirim */}
                 <button
                   ref={submitRef}
                   type="submit"
@@ -182,7 +177,6 @@ export default function ContactModal({ isOpen, onClose }) {
                       onClick={handleWa}
                       className="bg-green-600 text-white font-bold py-3 rounded-lg hover:bg-green-700 transition-all flex justify-center items-center gap-2 mt-2"
                     >
-                      {/* Ikon WA (SVG) */}
                       <svg
                         className="w-5 h-5"
                         fill="currentColor"
