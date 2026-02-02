@@ -14,8 +14,9 @@ export default function Hero({ onContact }) {
             Halo Brother! 👋 Saya,
           </h2>
 
-          <h1 className="text-3xl lg:text-7xl font-bold text-primary mb-4 leading-tight">
-            FAJAR&nbsp;
+          <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-primary mb-4 leading-tight">
+            FAJAR
+            <br />
             <span className="text-accent">ARDIANSYAH</span>
           </h1>
 
