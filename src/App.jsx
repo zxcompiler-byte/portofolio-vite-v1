@@ -3,6 +3,7 @@ import { FiGithub, FiInstagram, FiMail } from "react-icons/fi";
 import { motion } from "framer-motion";
 import Card from "./components/Card";
 import ContactModal from "./components/ContactModal";
+import Hero from "./components/Hero";
 
 export default function App() {
   const [selectedId, setSelectedId] = useState(null);
@@ -75,7 +76,8 @@ export default function App() {
   ];
 
   return (
-    <div className="flex justify-center items-center min-h-screen p-4 lg:p-8 font-poppins text-primary">
+    <div className="flex flex-col justify-center items-center min-h-screen bg-background ">
+      <Hero onContact={() => setSelectedId("contact")} />
       <motion.div
         className="max-w-6xl w-full grid grid-cols-1 lg:grid-cols-3 gap-4"
         variants={containerVariants}
