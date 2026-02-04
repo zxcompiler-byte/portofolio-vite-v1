@@ -83,6 +83,7 @@ export default function App() {
 
         {/* BENTO GRID */}
         <motion.div
+          id="projects"
           className="grid grid-cols-1 lg:grid-cols-3 gap-4"
           variants={containerVariants}
           initial="hidden"
@@ -157,7 +158,7 @@ export default function App() {
                     <span
                       key={index}
                       className="
-                      mr-4 px-4 py-2 rounded-lg 
+                      mr-4 px-4 py-3 rounded-lg 
                       bg-surface border border-white/10 
                       text-secondary text-sm font-medium whitespace-nowrap 
                       hover:border-accent hover:text-accent 
@@ -257,6 +258,12 @@ export default function App() {
         isOpen={selectedId === "contact"}
         onClose={() => setSelectedId(null)}
       />
+
+      <footer className="text-center text-secondary text-xs py-8">
+        © {new Date().getFullYear()}{" "}
+        <span className="text-accent font-bold">Fajar Ardiansyah</span>. All
+        rights reserved.
+      </footer>
     </div>
   );
 }

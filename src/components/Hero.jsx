@@ -55,7 +55,14 @@ export default function Hero({ onContact }) {
               Let's Collaborate 🚀
             </button>
 
-            <button className="cursor-pointer border border-secondary text-primary px-4 lg:px-8 py-3 rounded-full hover:border-accent hover:text-accent transition-all">
+            <button
+              onClick={() =>
+                document
+                  .getElementById("projects")
+                  ?.scrollIntoView({ behavior: "smooth" })
+              }
+              className="cursor-pointer border border-secondary text-primary px-4 lg:px-8 py-3 rounded-full hover:border-accent hover:text-accent transition-all"
+            >
               Lihat Karya
             </button>
           </div>
