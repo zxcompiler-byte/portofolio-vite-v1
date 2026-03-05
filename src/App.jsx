@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FiGithub, FiInstagram, FiMail } from "react-icons/fi";
+import { FiAward, FiGithub, FiInstagram, FiMail } from "react-icons/fi";
 import { motion } from "framer-motion";
 import Card from "./components/Card";
 import ContactModal from "./components/ContactModal";
@@ -73,6 +73,22 @@ export default function App() {
     "Firebase",
     "Git",
     "Github",
+  ];
+
+  // DATA CERT
+  const cert = [
+    {
+      id: 1,
+      title: "Python Fundamental for Data Science",
+      issuer: "DQLab",
+      link: "https://drive.google.com/file/d/1yAsLTbatc3eHBmoxu3PHX8Q_5218clMW/view?usp=sharing",
+    },
+    {
+      id: 2,
+      title: "R Fundamental for Data Science",
+      issuer: "DQLab",
+      link: "https://drive.google.com/file/d/1TDnA-YTwEC4gY9zk7HQnLFpdadiAWmhD/view?usp=sharing",
+    },
   ];
 
   return (
@@ -157,14 +173,7 @@ export default function App() {
                   (tech, index) => (
                     <span
                       key={index}
-                      className="
-                      mr-4 px-4 py-3 rounded-lg 
-                      bg-surface border border-white/10 
-                      text-secondary text-sm font-medium whitespace-nowrap 
-                      hover:border-accent hover:text-accent 
-                      active:border-accent active:text-accent active:scale-95
-                      transition-all duration-200 cursor-default select-none
-                    "
+                      className="mr-4 px-4 py-3 rounded-lg bg-surface border border-white/10 text-secondary text-sm font-medium whitespace-nowrap hover:border-accent hover:text-accent transition-all duration-200 cursor-default select-none"
                     >
                       {tech}
                     </span>
@@ -179,7 +188,7 @@ export default function App() {
             variants={itemVariants}
             className="lg:col-span-3 p-6 flex flex-col gap-6"
           >
-            <h2 className="text-secondary text-xs lg:text-sm text-center lg:text-leftfont-bold tracking-widest uppercase">
+            <h2 className="text-secondary text-xs lg:text-sm text-center lg:text-left font-bold tracking-widest uppercase">
               Featured Projects
             </h2>
 
@@ -192,16 +201,11 @@ export default function App() {
                   rel="noopener noreferrer"
                   className="group relative aspect-video rounded-xl overflow-hidden bg-surface border border-primary/10 hover:border-accent/50 transition-all duration-300 text-center lg:text-left"
                 >
-                  {/* BG IMAGE */}
                   <div
                     className="absolute inset-0 bg-cover bg-top transition-transform duration-700 group-hover:scale-110"
                     style={{ backgroundImage: `url(${project.image})` }}
                   ></div>
-
-                  {/* OVERLAY GELAP */}
                   <div className="absolute inset-0 bg-linear-to-t from-background via-background/70 to-transparent opacity-90 transition-opacity"></div>
-
-                  {/* CONTENT TEXT */}
                   <div className="absolute bottom-0 left-0 w-full p-5 flex flex-col gap-2 translate-y-0 lg:translate-y-2 lg:group-hover:translate-y-0 transition-transform duration-300">
                     <h3 className="text-[14px] lg:text-xl font-extrabold lg:font-bold text-accent lg:text-primary group-hover:text-accent transition-colors">
                       {project.title}
@@ -209,7 +213,7 @@ export default function App() {
                     <p className="text-[10px] lg:text-sm text-secondary line-clamp-2 leading-relaxed opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity duration-300 delay-100">
                       {project.desc}
                     </p>
-                    <div className="flex flex-wrap gap-2 mt-2  justify-center lg:justify-start">
+                    <div className="flex flex-wrap gap-2 mt-2 justify-center lg:justify-start">
                       {project.tech.map((t) => (
                         <span
                           key={t}
@@ -225,7 +229,50 @@ export default function App() {
             </div>
           </Card>
 
-          {/* 5. SOCIAL LINKS */}
+          {/* 5. CERTIFICATIONS SECTION */}
+          <div
+            className={`grid gap-4 col-span-1 lg:col-span-3 ${
+              cert.length === 1
+                ? "lg:grid-cols-1"
+                : cert.length === 2
+                  ? "lg:grid-cols-2"
+                  : "lg:grid-cols-3"
+            }`}
+          >
+            {cert.map((certificate) => (
+              <a
+                key={certificate.id}
+                href={certificate.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full"
+              >
+                <Card
+                  variants={itemVariants}
+                  className="h-full flex flex-col gap-4 p-6 hover:border-accent/50 group transition-all"
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="p-2 rounded-lg bg-accent/10 text-accent group-hover:rotate-12 transition-transform">
+                      <FiAward size={24} />
+                    </div>
+                    <span className="text-[10px] text-secondary font-bold uppercase tracking-widest">
+                      Certification
+                    </span>
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-primary text-sm lg:text-base leading-tight group-hover:text-accent transition-colors">
+                      {certificate.title}
+                    </h3>
+                    <p className="text-secondary text-xs mt-1 italic">
+                      Issued by {certificate.issuer}
+                    </p>
+                  </div>
+                </Card>
+              </a>
+            ))}
+          </div>
+
+          {/* 6. SOCIAL LINKS */}
           <Card variants={itemVariants} className="lg:col-span-3 p-6">
             <div className="flex flex-wrap gap-2 lg:gap-4 justify-center">
               {socialLinks.map((social) => (
@@ -236,13 +283,7 @@ export default function App() {
                       ? setSelectedId(social.action)
                       : window.open(social.href, "_blank")
                   }
-                  className="
-                    flex items-center gap-2 p-2 lg:px-6 lg:py-3 
-                    text-[10px] lg:text-base rounded-lg 
-                    bg-surface border border-white/10 text-primary 
-                    hover:border-accent hover:text-accent 
-                    transition-all duration-300 cursor-pointer
-                  "
+                  className="flex items-center gap-2 p-2 lg:px-6 lg:py-3 text-[10px] lg:text-base rounded-lg bg-surface border border-white/10 text-primary hover:border-accent hover:text-accent transition-all duration-300 cursor-pointer"
                 >
                   {social.icon}
                   <span className="font-bold">{social.label}</span>
